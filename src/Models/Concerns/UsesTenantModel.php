@@ -2,11 +2,12 @@
 
 namespace Spatie\Multitenancy\Models\Concerns;
 
-use Spatie\Multitenancy\Models\Tenant;
+
+use Spatie\Multitenancy\Contracts\TenantContract;
 
 trait UsesTenantModel
 {
-    public function getTenantModel(): Tenant
+    public function getTenantModel(): TenantContract
     {
         $tenantModelClass = config('multitenancy.tenant_model');
 
