@@ -2,11 +2,11 @@
 
 namespace Spatie\Multitenancy\Tasks;
 
-use Spatie\Multitenancy\Models\Tenant;
+use Spatie\Multitenancy\Contracts\TenantContract;
 
 interface SwitchTenantTask
 {
-    public function makeCurrent(Tenant $tenant): void;
+    public function makeCurrent(TenantContract $tenant): void;
 
     public function forgetCurrent(): void;
 }

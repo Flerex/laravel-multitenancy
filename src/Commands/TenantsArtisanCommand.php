@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Artisan;
 use Spatie\Multitenancy\Commands\Concerns\TenantAware;
 use Spatie\Multitenancy\Concerns\UsesMultitenancyConfig;
 use Spatie\Multitenancy\Models\Concerns\UsesTenantModel;
-use Spatie\Multitenancy\Models\Tenant;
 
 class TenantsArtisanCommand extends Command
 {
@@ -25,7 +24,8 @@ class TenantsArtisanCommand extends Command
 
         $artisanCommand = addslashes($artisanCommand);
 
-        $tenant = Tenant::current();
+        $tenantClass = config('multitenancy.tenant_model');
+        $tenant = $tenantClass::current();
 
         $this->line('');
         $this->info("Running command for tenant `{$tenant->name}` (id: {$tenant->getKey()})...");

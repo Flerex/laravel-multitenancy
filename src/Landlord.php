@@ -2,15 +2,14 @@
 
 namespace Spatie\Multitenancy;
 
-use Spatie\Multitenancy\Models\Tenant;
-
 class Landlord
 {
     public static function execute(callable $callable)
     {
-        $originalCurrentTenant = Tenant::current();
+        $tenantClass = config('multitenancy.tenant_model');
+        $originalCurrentTenant = $tenantClass::current();
 
-        Tenant::forgetCurrent();
+        $tenantClass::forgetCurrent();
 
         $result = $callable();
 

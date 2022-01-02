@@ -6,7 +6,6 @@ use Illuminate\Contracts\Foundation\Application;
 use Spatie\Multitenancy\Actions\MakeQueueTenantAwareAction;
 use Spatie\Multitenancy\Concerns\UsesMultitenancyConfig;
 use Spatie\Multitenancy\Models\Concerns\UsesTenantModel;
-use Spatie\Multitenancy\Models\Tenant;
 use Spatie\Multitenancy\Tasks\TasksCollection;
 use Spatie\Multitenancy\TenantFinder\TenantFinder;
 
@@ -30,7 +29,8 @@ class Multitenancy
 
     public function end(): void
     {
-        Tenant::forgetCurrent();
+        $tenantClass = config('multitenancy.tenant_model');
+        $tenantClass::forgetCurrent();
     }
 
     protected function determineCurrentTenant(): void

@@ -2,9 +2,9 @@
 
 namespace Spatie\Multitenancy\Actions;
 
+use Spatie\Multitenancy\Contracts\TenantContract;
 use Spatie\Multitenancy\Events\MadeTenantCurrentEvent;
 use Spatie\Multitenancy\Events\MakingTenantCurrentEvent;
-use Spatie\Multitenancy\Models\Tenant;
 use Spatie\Multitenancy\Tasks\SwitchTenantTask;
 use Spatie\Multitenancy\Tasks\TasksCollection;
 
@@ -15,7 +15,7 @@ class MakeTenantCurrentAction
     ) {
     }
 
-    public function execute(Tenant $tenant)
+    public function execute(TenantContract $tenant)
     {
         event(new MakingTenantCurrentEvent($tenant));
 
@@ -28,14 +28,14 @@ class MakeTenantCurrentAction
         return $this;
     }
 
-    protected function performTasksToMakeTenantCurrent(Tenant $tenant): self
+    protected function performTasksToMakeTenantCurrent(TenantContract $tenant): self
     {
         $this->tasksCollection->each(fn (SwitchTenantTask $task) => $task->makeCurrent($tenant));
 
         return $this;
     }
 
-    protected function bindAsCurrentTenant(Tenant $tenant): self
+    protected function bindAsCurrentTenant(TenantContract $tenant): self
     {
         $containerKey = config('multitenancy.current_tenant_container_key');
 

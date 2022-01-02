@@ -32,7 +32,8 @@ class MakeQueueTenantAwareAction
                 return [];
             }
 
-            return ['tenantId' => Tenant::current()?->id];
+            $tenantClass = config('multitenancy.tenant_model');
+            return ['tenantId' => $tenantClass::current()?->getKey()];
         });
 
         return $this;
