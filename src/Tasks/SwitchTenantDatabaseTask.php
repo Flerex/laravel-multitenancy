@@ -4,6 +4,7 @@ namespace Spatie\Multitenancy\Tasks;
 
 use Illuminate\Support\Facades\DB;
 use Spatie\Multitenancy\Concerns\UsesMultitenancyConfig;
+use Spatie\Multitenancy\Contracts\TenantContract;
 use Spatie\Multitenancy\Exceptions\InvalidConfiguration;
 use Spatie\Multitenancy\Models\Tenant;
 
@@ -11,7 +12,7 @@ class SwitchTenantDatabaseTask implements SwitchTenantTask
 {
     use UsesMultitenancyConfig;
 
-    public function makeCurrent(Tenant $tenant): void
+    public function makeCurrent(TenantContract $tenant): void
     {
         $this->setTenantConnectionDatabaseName($tenant->getDatabaseName());
     }
