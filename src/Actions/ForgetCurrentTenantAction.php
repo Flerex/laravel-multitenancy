@@ -2,9 +2,9 @@
 
 namespace Spatie\Multitenancy\Actions;
 
+use Spatie\Multitenancy\Contracts\TenantContract;
 use Spatie\Multitenancy\Events\ForgettingCurrentTenantEvent;
 use Spatie\Multitenancy\Events\ForgotCurrentTenantEvent;
-use Spatie\Multitenancy\Models\Tenant;
 use Spatie\Multitenancy\Tasks\SwitchTenantTask;
 use Spatie\Multitenancy\Tasks\TasksCollection;
 
@@ -15,7 +15,7 @@ class ForgetCurrentTenantAction
     ) {
     }
 
-    public function execute(Tenant $tenant)
+    public function execute(TenantContract $tenant)
     {
         event(new ForgettingCurrentTenantEvent($tenant));
 
